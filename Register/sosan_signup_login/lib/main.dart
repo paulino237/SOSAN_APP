@@ -9,7 +9,6 @@ import 'package:sosan_signup_login/Register%20and%20Login/SignIn.dart';
 import 'package:sosan_signup_login/Register%20and%20Login/Signup.dart';
 import 'package:sosan_signup_login/RellVideos/HomeForVideo.dart';
 import 'package:sosan_signup_login/RellVideos/player_controller.dart';
-import 'package:sosan_signup_login/RellVideos/videos.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeVideo(),
+      home: OnboardingView(),
     );
   }
 }
