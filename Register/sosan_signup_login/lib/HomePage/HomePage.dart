@@ -1,9 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:flutter_svg/svg.dart';
 import 'package:sosan_signup_login/Constante.dart';
 import 'package:sosan_signup_login/DetailsOFDoctor/detail_page.dart';
 import 'package:sosan_signup_login/DetailsOfHospital/details.dart';
@@ -12,13 +9,11 @@ import 'package:sosan_signup_login/Register%20and%20Login/Home.dart';
 import 'package:sosan_signup_login/RellVideos/HomeForVideo.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
-  State<HomePage> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   final List<String> images = [
     'assets/cover.jpg',
     'assets/europe.jpg',
@@ -30,6 +25,7 @@ class _HomeState extends State<HomePage> {
   ];
   int temp_indexed = 1;
   bool isLoggedIn = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,51 +37,52 @@ class _HomeState extends State<HomePage> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: temp_indexed,
-              backgroundColor: Colors.white,
-              selectedFontSize: 8,
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home, color: Constante.bleu),
-                    label: '',
-                    backgroundColor: Colors.white),
-                BottomNavigationBarItem(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: temp_indexed,
+            backgroundColor: Colors.white,
+            selectedFontSize: 8,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home, color: Constante.bleu),
+                  label: '',
+                  backgroundColor: Colors.white),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.chat,
+                    color: Constante.bleu,
+                  ),
+                  label: '',
+                  backgroundColor: Colors.white),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.note_add,
+                    color: Constante.bleu,
+                  ),
+                  label: '',
+                  backgroundColor: Colors.white),
+              BottomNavigationBarItem(
+                  icon: IconButton(
+                    color: Constante.bleu,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()),
+                      );
+                    },
                     icon: Icon(
-                      Icons.chat,
-                      color: Constante.bleu,
+                      Icons.person,
                     ),
-                    label: '',
-                    backgroundColor: Colors.white),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.note_add,
-                      color: Constante.bleu,
-                    ),
-                    label: '',
-                    backgroundColor: Colors.white),
-                BottomNavigationBarItem(
-                    icon: IconButton(
-                      color: Constante.bleu,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileScreen()),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.person,
-                      ),
-                    ),
-                    label: '',
-                    backgroundColor: Colors.white),
-              ],
-              onTap: (index) {
-                setState(() {
-                  temp_indexed = index;
-                });
-              }),
+                  ),
+                  label: '',
+                  backgroundColor: Colors.white),
+            ],
+            // onTap: (index) {
+            //   setState(() {
+            //     temp_indexed = index;
+            //   });
+            // }
+          ),
         ),
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -150,9 +147,6 @@ class _HomeState extends State<HomePage> {
           actions: <Widget>[
             !isLoggedIn ? profilLogout() : profilLogin(),
             SizedBox(width: 0.0),
-            !isLoggedIn ? SizedBox(width: 0.0) : ShowBadge(),
-            SizedBox(width: 2.0),
-            !isLoggedIn ? SizedBox(width: 0.0) : ShowBadge(),
           ],
         ),
         body: Container(
@@ -305,11 +299,6 @@ class _HomeState extends State<HomePage> {
     );
   }
 
-//Carousel
-  // ignore: non_constant_identifier_names
-  Widget Carousel() {
-    return Carousel();
-  }
   // Image Container
 
   Widget MainContainer() {
@@ -318,26 +307,30 @@ class _HomeState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            ImageContainer(
-              name: 'Hospital',
+            InkWell(
+              child: ImageContainer(
+                name: 'Hospital',
+                colorIcon: Constante.bleu,
+                color: Constante.bleu,
+                colorBorder: Constante.vert,
+                icon: Icons.house,
+              ),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => DetailsScreen()));
               },
-              colorIcon: Constante.bleu,
-              color: Constante.bleu,
-              colorBorder: Constante.vert,
-              icon: Icons.house,
             ),
             const SizedBox(
               width: 16.0,
             ),
-            ImageContainer(
-                colorIcon: Constante.vert,
-                color: Constante.vert,
-                colorBorder: Constante.bleu,
-                icon: Icons.medication_liquid,
-                name: 'Pharmacy',
+            InkWell(
+                child: ImageContainer(
+                  colorIcon: Constante.vert,
+                  color: Constante.vert,
+                  colorBorder: Constante.bleu,
+                  icon: Icons.medication_liquid,
+                  name: 'Pharmacy',
+                ),
                 onTap: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Home()));
@@ -350,12 +343,14 @@ class _HomeState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            ImageContainer(
-                colorIcon: Constante.vert,
-                color: Constante.vert,
-                colorBorder: Constante.bleu,
-                icon: Icons.medical_services,
-                name: 'Doctors',
+            InkWell(
+                child: ImageContainer(
+                  colorIcon: Constante.vert,
+                  color: Constante.vert,
+                  colorBorder: Constante.bleu,
+                  icon: Icons.medical_services,
+                  name: 'Doctors',
+                ),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => DetailPage()));
@@ -363,12 +358,14 @@ class _HomeState extends State<HomePage> {
             const SizedBox(
               width: 16.0,
             ),
-            ImageContainer(
-                colorIcon: Constante.bleu,
-                color: Constante.bleu,
-                colorBorder: Constante.vert,
-                icon: Icons.attach_money,
-                name: 'Insurance',
+            InkWell(
+                child: ImageContainer(
+                  colorIcon: Constante.bleu,
+                  color: Constante.bleu,
+                  colorBorder: Constante.vert,
+                  icon: Icons.attach_money,
+                  name: 'Insurance',
+                ),
                 onTap: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Home()));
@@ -381,12 +378,14 @@ class _HomeState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            ImageContainer(
-                colorIcon: Constante.bleu,
-                color: Constante.bleu,
-                colorBorder: Constante.vert,
-                icon: Icons.videocam,
-                name: ' Video',
+            InkWell(
+                child: ImageContainer(
+                  colorIcon: Constante.bleu,
+                  color: Constante.bleu,
+                  colorBorder: Constante.vert,
+                  icon: Icons.videocam,
+                  name: 'Videos & \n Conseils',
+                ),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HomeVideo()));
@@ -394,12 +393,14 @@ class _HomeState extends State<HomePage> {
             const SizedBox(
               width: 16.0,
             ),
-            ImageContainer(
-                colorIcon: Constante.vert,
-                color: Constante.vert,
-                colorBorder: Constante.bleu,
-                icon: Icons.group,
-                name: 'NGO',
+            InkWell(
+                child: ImageContainer(
+                  colorIcon: Constante.vert,
+                  color: Constante.vert,
+                  colorBorder: Constante.bleu,
+                  icon: Icons.group,
+                  name: 'NGO',
+                ),
                 onTap: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Home()));
@@ -410,13 +411,14 @@ class _HomeState extends State<HomePage> {
     );
   }
 
-  Widget ImageContainer(
-      {required String name,
-      required Color color,
-      required Color colorIcon,
-      required Color colorBorder,
-      required IconData icon,
-      required Function onTap}) {
+  Widget ImageContainer({
+    required String name,
+    required Color color,
+    required Color colorIcon,
+    required Color colorBorder,
+    required IconData icon,
+    // required Function onTap
+  }) {
     return Container(
       width: 150.0,
       height: 80.0,
@@ -432,13 +434,14 @@ class _HomeState extends State<HomePage> {
             color: colorIcon,
             size: 20.0,
           ),
-          SizedBox(width: 15.0),
+          SizedBox(width: 2.0),
           TextButton(
-            onPressed: onTap(),
+            // onPressed: onTap(),
+            onPressed: () {},
             child: Text(
               name,
               style: GoogleFonts.montserrat(
-                  color: color, fontSize: 16.0, fontWeight: FontWeight.bold),
+                  color: color, fontSize: 15.0, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -460,31 +463,6 @@ class _HomeState extends State<HomePage> {
             height: 30,
           )),
     );
-  }
-
-  Widget ShowBadge() {
-    return Container(
-        margin: EdgeInsets.only(top: 5),
-        child: InkWell(
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(
-              builder: (context) => Home(),
-            ))
-                .then((value) {
-              // you can do what you need here
-              setState(() {});
-            });
-          },
-          child: const Badge(
-            // badgeContent: Text(session.nbreNotif.toString(), style: const TextStyle(color: Colors.white),),
-            // badgeColor: Constante.vert,
-            child: Icon(
-              Icons.notifications,
-              size: 25,
-            ),
-          ),
-        ));
   }
 
   Widget profilLogin() {

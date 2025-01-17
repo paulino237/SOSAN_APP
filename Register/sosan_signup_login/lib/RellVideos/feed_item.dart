@@ -48,6 +48,23 @@ class _FeedItemState extends State<FeedItem> {
     }
   }
 
+  IconData _iconData = Icons.favorite_border; // Icône initiale
+  Color _iconColor = Colors.grey; // Couleur initiale
+
+  // Fonction appelée lorsque l'utilisateur clique sur l'icône
+  void _toggleIcon() {
+    setState(() {
+      // Changer l'icône et la couleur en fonction de l'état actuel
+      if (_iconData == Icons.favorite_border) {
+        _iconData = Icons.favorite;
+        _iconColor = Constante.bleu;
+      } else {
+        _iconData = Icons.favorite_border;
+        _iconColor = Colors.grey;
+      }
+    });
+  }
+
 //: check for cache
   Future<FileInfo?> checkCacheFor(String url) async {
     final FileInfo? value = await DefaultCacheManager().getFileFromCache(url);
@@ -90,6 +107,23 @@ class _FeedItemState extends State<FeedItem> {
                       ),
                     ),
                   ),
+                  // Positioned(
+                  //   top: 16.0,
+                  //   left: 16.0,
+                  //   child: IconButton(
+                  //     onPressed: () {
+                  //       // Ajouter la logique de retour ici
+                  //       Navigator.of(context).pop();
+                  //     },
+                  //     icon: Icon(
+                  //       Icons.arrow_back,
+                  //       color: Constante.bleu,
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 35,
+                  ),
                   Positioned(
                     top: 16.0,
                     left: 16.0,
@@ -121,10 +155,10 @@ class _FeedItemState extends State<FeedItem> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: _toggleIcon,
                           icon: Icon(
-                            Icons.favorite,
-                            color: Constante.bleu,
+                            _iconData,
+                            color: _iconColor,
                             size: 30,
                           ),
                         ),

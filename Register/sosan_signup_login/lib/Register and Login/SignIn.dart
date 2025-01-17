@@ -162,7 +162,13 @@ class SignIn extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(28.0),
                                     side: BorderSide(color: Colors.white))),
                           ),
-                          onPressed: () => null,
+                           onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
