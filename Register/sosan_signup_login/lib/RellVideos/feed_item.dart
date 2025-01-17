@@ -67,7 +67,7 @@ class _FeedItemState extends State<FeedItem> {
 
 //: check for cache
   Future<FileInfo?> checkCacheFor(String url) async {
-    final FileInfo? value = await DefaultCacheManager().getFileFromCache(url);
+    final Future<FileInfo?> value = DefaultCacheManager().getFileFromCache(url);
     return value;
   }
 
@@ -104,6 +104,33 @@ class _FeedItemState extends State<FeedItem> {
                         width: _controller!.value.size.width,
                         height: _controller!.value.size.height,
                         child: VideoPlayer(_controller!),
+                      ),
+                    ),
+                  ),
+
+                  // Bouton Pause/Lecture au centre
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black54, // Couleur de fond transparente
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          _controller!.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: Colors.white, // Couleur de l'icône
+                        ),
+                        onPressed: () {
+                          if (_controller!.value.isPlaying) {
+                            _controller!.pause();
+                          } else {
+                            _controller!.play();
+                          }
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),

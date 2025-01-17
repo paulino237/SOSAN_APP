@@ -9,6 +9,7 @@ import 'package:sosan_signup_login/Register%20and%20Login/SignIn.dart';
 import 'package:sosan_signup_login/Register%20and%20Login/Signup.dart';
 import 'package:sosan_signup_login/RellVideos/HomeForVideo.dart';
 import 'package:sosan_signup_login/RellVideos/player_controller.dart';
+import 'package:sosan_signup_login/RellVideos/videos.dart';
 
 void main() {
   runApp(const MyApp());
